@@ -3,10 +3,11 @@ from models.agent import Agent #importing the dataclasses from their respective 
 from models.faction import Faction
 from models.location import Location
 from models.world import World
-from models.zones import Zone
+from models.zone import Zone
 
 #STEP 1: this loads the world, take all the data from the different files, and folders, creates the agents then drops them into the world
-
+world_width = 250 #world data
+world_height = 200
 #create empty lists
 agent_list = [] #create list that we're going to append data to
 faction_list = []
@@ -30,11 +31,15 @@ with open("data/factions.json","r") as file:
 with open("data/locations.json","r") as file: 
     location_data = json.load(file)
     for data in location_data:
-        location_name = data["name"]
-        location = Location(**data)
+        if 0 <= data["x_min"] and data["x_max"] <= world_width and  0 <= data["y_min"] and data["y_max"] <= world_height:
+            if data["x_min"] < data["x_max"] and data["y_min"] < data["y_max"]:  
+                location_name = data["name"]
+                location = Location(**data)
+                location_list.append(location)
+                location_name_list.append(location_name) # for later Validating the values
+            else:
+                print("invalid location bound")
 
-        location_list.append(location)
-        location_name_list.append(location_name) # for later Validating the values
 with open("data/zones.json") as file:
     zone_data = json.load(file)
     for data in zone_data:
@@ -70,6 +75,9 @@ with open("data/agents.json","r") as file: # r is read mode, we're saying open t
 # STEP 4: initalise world with the filled lists
 
 world = World(
+        width = 250,
+        height = 200,
+        zones = zone_list,
         agents = agent_list, #passing the arguments World dataclass expects
         factions = faction_list,
         locations = location_list,

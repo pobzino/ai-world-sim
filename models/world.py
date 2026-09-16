@@ -7,9 +7,12 @@ from models.zone import Zone
 
 @dataclass
 class World:
+    width: int
+    height: int
     agents: list[Agent]
     locations: list[Location]
     factions: list[Faction]    
     zones: list[Zone]
     current_turn: int
     event_history: list[str]
+

@@ -1,8 +1,10 @@
 [
     {
         "name": "city",
-        "width": 100,
-        "height": 100,
+        "x_min": 10,
+        "y_min": 50,
+        "x_max": 110,
+        "y_max": 150,
         "land_description": "Dense urban territory centred around administrative buildings, markets and fortified roads. The City has the strongest infrastructure and easiest movement between districts, but its dense population makes unrest difficult to contain.",
         "population": 500,
         "control": {
@@ -12,8 +14,10 @@
     },
     {
         "name": "village",
-        "width": 50,
-        "height": 50,
+        "x_min": 185,
+        "y_min": 70,
+        "x_max": 235,
+        "y_max": 120,
         "land_description": "Open agricultural land made up of scattered homes, farmland and small settlements connected by narrow roads and footpaths. Local residents know the terrain well, making outside control harder to maintain.",
         "population": 100,
         "control": {
@@ -23,8 +27,10 @@
     },
     {
         "name": "riverside",
-        "width": 35,
-        "height": 25,
+        "x_min": 125,
+        "y_min": 80,
+        "x_max": 160,
+        "y_max": 105,
         "land_description": "A narrow region built around the main river crossing, with docks, fishing settlements, wetlands and trade routes. Control of Riverside gives access to movement and trade between the City and Village.",
         "population": 1200,
         "control": {
