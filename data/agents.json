@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Samuel",
+        "id": "samuel",
+        "location": "city",
+        "health": 100,
+        "strength": 12,
+        "faction_id": "imperials"
+    },
+    {
+        "name": "Pobor",
+        "id": "pobor",
+        "location": "village",
+        "health": 100,
+        "strength": 25,
+        "faction_id": "rebels"
+    },
+    {
+        "name": "Alice",
+        "id": "alice",
+        "location": "village",
+        "health": 75,
+        "strength": 10,
+        "faction_id": "rebels"
+    }
+]

@@ -1,0 +1,74 @@
+[
+    {
+        "id": "imperial_citadel",
+        "name": "Imperial Citadel",
+        "location_name": "city",
+        "faction_id": "imperials",
+        "x_min": 10,
+        "y_min": 60,
+        "x_max": 30,
+        "y_max": 90,
+        "zone_type": "stronghold",
+        "description": "The main Imperial administrative and military compound in the city."
+    },
+    {
+        "id": "rebel_safehouse",
+        "name": "Rebel Safehouse",
+        "location_name": "city",
+        "faction_id": "rebels",
+        "x_min": 75,
+        "y_min": 10,
+        "x_max": 90,
+        "y_max": 25,
+        "zone_type": "safehouse",
+        "description": "A concealed Rebel base hidden among the city's outer residential districts."
+    },
+    {
+        "id": "rebel_camp",
+        "name": "Rebel Camp",
+        "location_name": "village",
+        "faction_id": "rebels",
+        "x_min": 10,
+        "y_min": 25,
+        "x_max": 20,
+        "y_max": 40,
+        "zone_type": "camp",
+        "description": "The main Rebel encampment, protected by surrounding farmland and local supporters."
+    },
+    {
+        "id": "imperial_outpost",
+        "name": "Imperial Outpost",
+        "location_name": "village",
+        "faction_id": "imperials",
+        "x_min": 35,
+        "y_min": 5,
+        "x_max": 45,
+        "y_max": 15,
+        "zone_type": "outpost",
+        "description": "A fortified Imperial position used to monitor movement through the village."
+    },
+    {
+        "id": "imperial_dock_fort",
+        "name": "Imperial Dock Fort",
+        "location_name": "riverside",
+        "faction_id": "imperials",
+        "x_min": 2,
+        "y_min": 5,
+        "x_max": 10,
+        "y_max": 18,
+        "zone_type": "fort",
+        "description": "An Imperial fort controlling access to the main docks and river crossing."
+    },
+    {
+        "id": "rebel_marsh_camp",
+        "name": "Rebel Marsh Camp",
+        "location_name": "riverside",
+        "faction_id": "rebels",
+        "x_min": 22,
+        "y_min": 10,
+        "x_max": 32,
+        "y_max": 22,
+        "zone_type": "camp",
+        "description": "A concealed Rebel camp positioned within the wetlands away from the main trade route."
+    }
+]

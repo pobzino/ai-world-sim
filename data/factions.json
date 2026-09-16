@@ -1,0 +1,12 @@
+[
+    {
+        "id": "imperials",
+        "name": "Imperials",
+        "faction_description": "The ruling faction that controls the region’s major cities, roads and institutions. They value order, central authority and stability, and believe the territory is safest under a single organised government, even if maintaining that control requires force."
+    },
+    {
+        "id": "rebels",
+        "name": "Rebels",
+        "faction_description": "A loose resistance movement made up of villagers, defectors and local leaders who oppose Imperial rule. They favour local autonomy and see Imperial control as exploitative, relying on community support, mobility and knowledge of the land to survive against a stronger organised power."
+    }
+]
