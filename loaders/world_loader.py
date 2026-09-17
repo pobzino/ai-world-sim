@@ -1,4 +1,5 @@
 import json
+import random
 from models.agent import Agent #importing the dataclasses from their respective files
 from models.faction import Faction
 from models.location import Location
@@ -46,31 +47,41 @@ with open("data/zones.json") as file:
         if data["location_name"]  in location_name_list and data["faction_id"] in faction_id_list:
             for location in location_list:
                 if location.name == data["location_name"]:
-                    if 0 <= data["x_min"] and data["x_max"] <= location.width and  0 <= data["y_min"] and data["y_max"] <= location.height:
-                        if data["x_min"] < data["x_max"] and data["y_min"] < data["y_max"]:  
-                            zone = Zone(**data)
-                            zone_list.append(zone)
-                        else:
-                            print("invalid zone")
+                    if data["x_min"] >= location.x_min and data["x_max"] <= location.x_max and data["y_min"] >= location.y_min and data["y_max"] <= location.y_max:
+                        zone = Zone(**data)
+                        zone_list.append(zone)
                     else:
-                         print("invalid zone")
+                            print("invalid zone")
 
         elif data["location_name"] not in location_name_list :
             print("invalid location")
         elif data["faction_id"] not in faction_id_list:
             print("invalid faction")
-        
 
 with open("data/agents.json","r") as file: # r is read mode, we're saying open the agents.json file, assign it the name file then read it then we can do something with it
     agents_data = json.load(file) # give agents data the list of data to create a list of new Agent instances
     for data in agents_data:
-        if data["faction_id"] in faction_id_list and data["location"] in location_name_list: #Data is a dictionary of the agent, so we call the key(name) to get the value of the ID
-            agent = Agent(**data) #take every key-value pair in this dictionary and pass them in as named arguments.
-            agent_list.append(agent)
+        valid_zones = []
+        selected_zone = None
+        if data["faction_id"] in faction_id_list: 
+            for zone in zone_list:
+                if zone.faction_id == data["faction_id"]:
+                    valid_zones.append(zone)
+            if valid_zones:
+                selected_zone = random.choice(valid_zones)
+                agent_x_position = random.randint(selected_zone.x_min, selected_zone.x_max)
+                agent_y_position = random.randint(selected_zone.y_min, selected_zone.y_max)
+                agent = Agent(**data,
+                            position = (agent_x_position, agent_y_position)) #take every key-value pair in this dictionary and pass them in as named arguments.
+                agent_list.append(agent)
+                print(f"{selected_zone.name} works for {data["name"]}")
+            else:
+                print(f"{zone.name} is not valid for {data["name"]}")
+
         elif data["faction_id"] not in faction_id_list:
-            print("Invalid faction")
+            print(f"Invalid faction, {data["faction_id"]} for {data["name"]}")
         elif data["location"] not in location_name_list:
-            print("Invalid location")
+            print(f"Invalid location for {data["name"]}. There is no {data["location"]} in our list")
 
 # STEP 4: initalise world with the filled lists
 
@@ -84,7 +95,3 @@ world = World(
         current_turn = 0,
         event_history = []
 )
-    
-print(world.agents)
-print(world.locations)
-print(world.factions)

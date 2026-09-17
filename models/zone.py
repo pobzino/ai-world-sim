@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 @dataclass
-class Zones:
+class Zone:
     id: str
     name: str
     location_name: str
