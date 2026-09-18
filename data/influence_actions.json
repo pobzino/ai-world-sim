@@ -2,6 +2,7 @@
     {
         "id": "persuade",
         "name": "Persuade",
+        "type": "influence",
         "effect": "Attempt to change another agent's decision through reasoning, evidence or incentives.",
         "stamina_use": 4,
         "range": 5.0
@@ -9,6 +10,7 @@
     {
         "id": "threaten",
         "name": "Threaten",
+        "type": "influence",
         "effect": "Attempt to force another agent's behaviour by communicating credible consequences.",
         "stamina_use": 5,
         "range": 5.0
@@ -16,6 +18,7 @@
     {
         "id": "deceive",
         "name": "Deceive",
+        "type": "influence",
         "effect": "Attempt to make another agent believe something that is false or incomplete.",
         "stamina_use": 5,
         "range": 5.0
@@ -23,6 +26,7 @@
     {
         "id": "reassure",
         "name": "Reassure",
+        "type": "influence",
         "effect": "Attempt to calm another agent or strengthen their willingness to cooperate.",
         "stamina_use": 3,
         "range": 5.0
@@ -30,6 +34,7 @@
     {
         "id": "recruit",
         "name": "Recruit",
+        "type": "influence",
         "effect": "Attempt to convince another agent to support or join a cause.",
         "stamina_use": 7,
         "range": 5.0

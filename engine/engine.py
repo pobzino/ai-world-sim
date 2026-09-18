@@ -9,14 +9,30 @@ from models.actions.wait_action import WaitAction
 from loaders.world_loader import world
 import random
 import math
+from dataclasses import dataclass
 
 #lists and global variables
-wait_action = WaitAction(name = "Wait",id = "wait",effect ="Wait to recover stamina, this uses your turn",stamina_use = 0)
+
+#function definition and router
+def move_action_handler(agent, action, world):
+     return
+def attack_action_handler(agent, action, world):
+     return
+def influence_action_handler(agent, action, world):
+     return
+def wait_action_handler(agent, action, world):
+     return
+action_router = {
+    "move": move_action_handler,
+    "attack": attack_action_handler,
+    "influence": influence_action_handler,
+    "wait": wait_action_handler
+}
+
+wait_action = WaitAction(name = "Wait",id = "wait", type= "wait", effect = "Wait to recover stamina, this uses your turn",stamina_use = 0)
 action_list = [wait_action]
+action_type_list = []
 active_agents = []
-move_action_list = []
-attack_action_list = []
-influence_action_list = []
 turn_list= []
 turns = turn_list.count
 round = 0
@@ -26,25 +42,24 @@ with open("data/move_actions.json", "r") as file:
     move_actions_data = json.load(file)
     for data in move_actions_data:
         move_action = MoveAction(**data)
-        move_action_list.append(move_action)
-    action_list.extend(move_action_list)
+        action_list.append(move_action)
+        action_type_list.append(move_action.type)
 
 #Attack import
 with open("data/attack_actions.json", "r") as file:
     attack_actions_data = json.load(file)
     for data in attack_actions_data:
         attack_action = AttackAction(**data)
-        attack_action_list.append(attack_action)
-    action_list.extend(attack_action_list)
+        action_list.append(attack_action)
+        action_type_list.append(attack_action.type)
 
 #Influence import
 with open("data/influence_actions.json", "r") as file:
     influence_actions_data = json.load(file)
     for data in influence_actions_data:
         influence_action = InfluenceAction(**data)
-        influence_action_list.append(influence_action)
-    action_list.extend(influence_action_list)
-print(action_list)
+        action_list.append(influence_action)
+        action_type_list.append(influence_action.type)
 
 #Turn queue
 if turn_list == []:
@@ -68,7 +83,7 @@ if turn_list != []:
                 if agent.stamina > 0:
                     if agent.stamina >= random_action.stamina_use:
                         #Movement Action
-                        if random_action in move_action_list:
+                        if random_action.type == "move":
                             target_position_x = random.randint(1,350)
                             target_position_y = random.randint(1,350)
 
@@ -112,6 +127,27 @@ if turn_list != []:
 #Action Execution logic
 
 
+## FUNCTIONS
+def handle_action(agent, chosen_action):
+    if chosen_action in action_list and chosen_action.type in action_router:
+        action_function = action_router.get(chosen_action.type)
+        return action_function(agent, chosen_action, world)
 
+    elif chosen_action not in action_list:
+        print(f"{chosen_action} is not a valid action")
+        return None
+    
+    elif chosen_action.type not in action_router:
+         print(f"{chosen_action.type} has no action function yet.")
+         return None
 
+def stamina_check(agent_stamina, chosen_action):
+           required_stamina = chosen_action.stamina_requred 
+           if agent_stamina >= required_stamina:
+                return True
+           else:
+                
+                return False
+    
 
+# Target rang check
