@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 @dataclass
-class Action:
+class Action():
     name: str
     effect: str
     id: str
