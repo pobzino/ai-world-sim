@@ -2,7 +2,6 @@
     {
         "id": "pistol_shot",
         "name": "Pistol Shot",
-        "type": "attack",
         "effect": "Fire a handgun at a nearby target.",
         "stamina_use": 2,
         "range": 15.0,
@@ -12,7 +11,6 @@
     {
         "id": "shoot",
         "name": "Shoot",
-        "type": "attack",
         "effect": "Fire a standard rifle shot at a visible target.",
         "stamina_use": 3,
         "range": 30.0,
@@ -22,7 +20,6 @@
     {
         "id": "aimed_shot",
         "name": "Aimed Shot",
-        "type": "attack",
         "effect": "Take time to line up a more accurate and damaging shot.",
         "stamina_use": 6,
         "range": 45.0,
@@ -32,7 +29,6 @@
     {
         "id": "snipe",
         "name": "Snipe",
-        "type": "attack",
         "effect": "Take a deliberate long-range shot from a stable position.",
         "stamina_use": 10,
         "range": 100.0,
@@ -42,7 +38,6 @@
     {
         "id": "burst_fire",
         "name": "Burst Fire",
-        "type": "attack",
         "effect": "Fire several rounds rapidly at a single target.",
         "stamina_use": 7,
         "range": 25.0,
@@ -52,7 +47,6 @@
     {
         "id": "suppressive_fire",
         "name": "Suppressive Fire",
-        "type": "attack",
         "effect": "Fire repeatedly toward an enemy position to restrict movement and force targets into cover.",
         "stamina_use": 12,
         "range": 35.0,
@@ -62,7 +56,6 @@
     {
         "id": "shotgun_blast",
         "name": "Shotgun Blast",
-        "type": "attack",
         "effect": "Fire a powerful close-range spread.",
         "stamina_use": 5,
         "range": 10.0,
@@ -72,7 +65,6 @@
     {
         "id": "grenade",
         "name": "Grenade",
-        "type": "attack",
         "effect": "Throw an explosive at a target position.",
         "stamina_use": 8,
         "range": 20.0,
@@ -82,7 +74,6 @@
     {
         "id": "melee_strike",
         "name": "Melee Strike",
-        "type": "attack",
         "effect": "Strike an adjacent enemy at close range.",
         "stamina_use": 5,
         "range": 1.5,

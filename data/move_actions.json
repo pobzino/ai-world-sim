@@ -2,15 +2,13 @@
     {
         "id": "walk",
         "name": "Walk",
-        "type": "move",
         "effect": "Move normally to a nearby position.",
-        "stamina_use": 0,
+        "stamina_use": 1,
         "range": 5.0
     },
     {
         "id": "run",
         "name": "Run",
-        "type": "move",
         "effect": "Move quickly across a moderate distance.",
         "stamina_use": 5,
         "range": 10.0
@@ -18,7 +16,6 @@
     {
         "id": "sprint",
         "name": "Sprint",
-        "type": "move",
         "effect": "Move as far as possible in a short period at significant stamina cost.",
         "stamina_use": 12,
         "range": 18.0
@@ -26,7 +23,6 @@
     {
         "id": "crawl",
         "name": "Crawl",
-        "type": "move",
         "effect": "Move slowly while maintaining a low profile.",
         "stamina_use": 3,
         "range": 3.0
@@ -34,7 +30,6 @@
     {
         "id": "retreat",
         "name": "Retreat",
-        "type": "move",
         "effect": "Move away from a perceived threat.",
         "stamina_use": 7,
         "range": 12.0

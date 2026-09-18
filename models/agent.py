@@ -12,3 +12,5 @@ class Agent:
     strength: int = 10
     max_stamina: int = 100
     stamina: int = 100
+    incapacitated: bool = False
+    status: list[str]
