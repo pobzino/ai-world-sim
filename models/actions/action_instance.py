@@ -5,6 +5,6 @@ from models.actions.action import Action
 @ dataclass
 class ActionInstance:
     action: Action
-    target: str
+    target: tuple[float, float]
     result : str
 

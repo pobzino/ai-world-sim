@@ -12,23 +12,6 @@ import math
 from dataclasses import dataclass
 
 #lists and global variables
-
-#function definition and router
-def move_action_handler(agent, action, world):
-     return
-def attack_action_handler(agent, action, world):
-     return
-def influence_action_handler(agent, action, world):
-     return
-def wait_action_handler(agent, action, world):
-     return
-action_router = {
-    "move": move_action_handler,
-    "attack": attack_action_handler,
-    "influence": influence_action_handler,
-    "wait": wait_action_handler
-}
-
 wait_action = WaitAction(name = "Wait",id = "wait", type= "wait", effect = "Wait to recover stamina, this uses your turn",stamina_use = 0)
 action_list = [wait_action]
 action_type_list = []
@@ -37,6 +20,92 @@ turn_list= []
 turns = turn_list.count
 round = 0
 turn_order = []
+action_router = {
+    "move": move_action_handler,
+    "attack": attack_action_handler,
+    "influence": influence_action_handler,
+    "wait": wait_action_handler
+}
+#function definition and router
+def start_action(chosen_action, target_position):
+    if chosen_action in action_list and chosen_action.type in action_router:
+        action_instance = ActionInstance(
+            action =  chosen_action,
+            target = target_position
+        )
+        return action_instance
+    elif chosen_action not in action_list:
+        print(f"{chosen_action} is an invalid action")
+    elif chosen_action.type not in action_router:
+        print(f"{chosen_action} has no corresponding function")
+       
+def distance_check (agent, action_instance):
+   
+    agent_position_x =  agent.position[0]
+    agent_position_y = agent.position[1]
+    action = action_instance.action 
+    
+    if action_instance.target is not None:
+        target_position_x, target_position_y = action_instance.target ## Right side = where the value comes from. Left side = where you want to store it.
+        
+        distance = ((target_position_x - agent_position_x)**2 + (target_position_y - agent_position_y)**2)**(1/2)
+        
+        if distance <=  action.range and 0 <= target_position_x <= world.width and 0 <= target_position_y <= world.height: #Euclidean distance, the shortest straight-line distance between two points
+            return True
+
+        elif  (0 > target_position_x or target_position_x > world.width) or (0 > target_position_y or target_position_y > world.height):
+            print(f"Invalid target")
+            return False
+
+        elif distance > action.range:
+            print(f"For {agent.name}, {distance} exceeds  {action.name}'s range of {action.range}")
+            return False
+
+
+def handle_action(agent, chosen_action):
+    current_action_instance = start_action(chosen_action)
+    if current_action_instance:
+        if stamina_check(agent.stamina, chosen_action.stamina_use) == True:
+            action_function = action_router.get(chosen_action.type)
+            return action_function(agent, current_action_instance, world)
+
+    elif chosen_action not in action_list:
+        print(f"{chosen_action} is not a valid action")
+        return None
+    
+    elif chosen_action.type not in action_router:
+         print(f"{chosen_action.type} has no action function yet.")
+         return None
+
+def move_action_handler(agent, action):
+    agent_position_x =  agent.position[0]
+    agent_position_y = agent.position[1]
+
+    target_position_x, target_position_y = target_position
+    distance = ((target_position_x - agent_position_x)**2 + (target_position_y - agent_position_y)**2)**(1/2)
+    
+    if distance <=  random_action.range and 0 <= target_position_x <= world.width and 0 <= target_position_y <= world.height:
+        agent.position = (target_position_x, target_position_y)
+        current_turn["actions_available"] -= 1
+        agent.stamina -= random_action.stamina_use
+        print(f"{agent.name} moved by {distance} ")
+        return agent.position
+
+    elif distance > random_action.range:
+        print(f"For {agent.name}, {distance} exceeds the {random_action.name}'s range of {random_action.range}")
+
+    elif  (0 > target_position_x or target_position_x > world.width) or (0 > target_position_y or target_position_y > world.height):
+        print(f"You can not move outside the world")
+
+def attack_action_handler(agent, action, world):
+     return
+def influence_action_handler(agent, action, world):
+     return
+def wait_action_handler(agent, action, world):
+     return
+
+
+
 #Movement import
 with open("data/move_actions.json", "r") as file:
     move_actions_data = json.load(file)
@@ -95,13 +164,12 @@ if turn_list != []:
                                 agent.position = (target_position_x, target_position_y)
                                 current_turn["actions_available"] -= 1
                                 agent.stamina -= random_action.stamina_use
+                                print(f"{agent.name} moved by {distance} ")
                             elif distance > random_action.range:
-                                print(f"{distance} exceeds the {random_action.name}'s range of {random_action.range}")
+                                print(f"For {agent.name}, {distance} exceeds the {random_action.name}'s range of {random_action.range}")
                             elif  (0 > target_position_x or target_position_x > world.width) or (0 > target_position_y or target_position_y > world.height):
                                 print(f"You can not move outside the world")
                         #Attack Action
-                        if random_action in attack_action_list:
-                            print(random_action )
                         #Wait Action
                         
                 else:
@@ -128,18 +196,7 @@ if turn_list != []:
 
 
 ## FUNCTIONS
-def handle_action(agent, chosen_action):
-    if chosen_action in action_list and chosen_action.type in action_router:
-        action_function = action_router.get(chosen_action.type)
-        return action_function(agent, chosen_action, world)
 
-    elif chosen_action not in action_list:
-        print(f"{chosen_action} is not a valid action")
-        return None
-    
-    elif chosen_action.type not in action_router:
-         print(f"{chosen_action.type} has no action function yet.")
-         return None
 
 def stamina_check(agent_stamina, chosen_action):
            required_stamina = chosen_action.stamina_requred 
@@ -148,6 +205,26 @@ def stamina_check(agent_stamina, chosen_action):
            else:
                 
                 return False
+def distance_check (agent, action_instance):
+   
+    agent_position_x =  agent.position[0]
+    agent_position_y = agent.position[1]
+
+    target_position_x, target_position_y = target_position
+    distance = ((target_position_x - agent_position_x)**2 + (target_position_y - agent_position_y)**2)**(1/2)
+    
+    if distance <=  action.range and 0 <= target_position_x <= world.width and 0 <= target_position_y <= world.height:
+        return target_position
+
+    elif distance > random_action.range:
+        print(f"For {agent.name}, {distance} exceeds  {action.name}'s range of {action.range}")
+        return False
+
+    elif  (0 > target_position_x or target_position_x > world.width) or (0 > target_position_y or target_position_y > world.height):
+        print(f"Invalid target")
+        return False
+
+
     
 
 # Target rang check
