@@ -77,14 +77,14 @@ def handle_action(agent, chosen_action):
          print(f"{chosen_action.type} has no action function yet.")
          return None
 
-def move_action_handler(agent, action):
+def move_action_handler(agent, action_instance):
     agent_position_x =  agent.position[0]
     agent_position_y = agent.position[1]
 
     target_position_x, target_position_y = target_position
     distance = ((target_position_x - agent_position_x)**2 + (target_position_y - agent_position_y)**2)**(1/2)
     
-    if distance <=  random_action.range and 0 <= target_position_x <= world.width and 0 <= target_position_y <= world.height:
+    if distance <=  action.range and 0 <= target_position_x <= world.width and 0 <= target_position_y <= world.height:
         agent.position = (target_position_x, target_position_y)
         current_turn["actions_available"] -= 1
         agent.stamina -= random_action.stamina_use
@@ -93,17 +93,20 @@ def move_action_handler(agent, action):
 
     elif distance > random_action.range:
         print(f"For {agent.name}, {distance} exceeds the {random_action.name}'s range of {random_action.range}")
+        return False
 
     elif  (0 > target_position_x or target_position_x > world.width) or (0 > target_position_y or target_position_y > world.height):
         print(f"You can not move outside the world")
+        return False
 
-def attack_action_handler(agent, action, world):
+def attack_action_handler(agent, action_instance, world):
      return
-def influence_action_handler(agent, action, world):
+def influence_action_handler(agent, action_instance, world):
      return
-def wait_action_handler(agent, action, world):
-     return
-
+def wait_action_handler(agent, action_instance, world):
+     return()
+def stamina_turn_system(agent, action_instance):
+    return()
 
 
 #Movement import
