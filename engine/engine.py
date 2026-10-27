@@ -39,27 +39,30 @@ def start_action(chosen_action, target_position):
     elif chosen_action.type not in action_router:
         print(f"{chosen_action} has no corresponding function")
        
-def distance_check (agent, action_instance):
+def distance_check (agent, action_instance): #COMPLETE
+    #Checking if an action instance has a valid distance and return True if it does
    
-    agent_position_x =  agent.position[0]
-    agent_position_y = agent.position[1]
+    agent_position_x, agent_position_y =  agent.position
     action = action_instance.action 
     
-    if action_instance.target is not None:
+    if action_instance.target is not None: #check if there's a target
         target_position_x, target_position_y = action_instance.target ## Right side = where the value comes from. Left side = where you want to store it.
         
-        distance = ((target_position_x - agent_position_x)**2 + (target_position_y - agent_position_y)**2)**(1/2)
-        
-        if distance <=  action.range and 0 <= target_position_x <= world.width and 0 <= target_position_y <= world.height: #Euclidean distance, the shortest straight-line distance between two points
-            return True
+        distance = ((target_position_x - agent_position_x)**2 + (target_position_y - agent_position_y)**2)**(1/2) #euclidean formula for distance between 2 points
 
-        elif  (0 > target_position_x or target_position_x > world.width) or (0 > target_position_y or target_position_y > world.height):
-            print(f"Invalid target")
-            return False
-
-        elif distance > action.range:
+        if distance >= action.range: #check if distance between agent and the target is within action's range
             print(f"For {agent.name}, {distance} exceeds  {action.name}'s range of {action.range}")
             return False
+
+        if  0 > target_position_x or target_position_x > world.width: #check if horizontal position is within world's x-axis
+            return "target not within x-axis"
+
+        if  0 > target_position_y or target_position_y > world.height: #check if vertical position is within world's y-axis
+            return "target not within y-axis"
+    
+        return True #its within range and valid
+
+            
 
 
 def handle_action(agent, chosen_action):
@@ -81,7 +84,7 @@ def move_action_handler(agent, action_instance):
     agent_position_x =  agent.position[0]
     agent_position_y = agent.position[1]
 
-    target_position_x, target_position_y = target_position
+    target_position_x, target_position_y = action_instance.target #unpack the instance's target tuple
     distance = ((target_position_x - agent_position_x)**2 + (target_position_y - agent_position_y)**2)**(1/2)
     
     if distance <=  action.range and 0 <= target_position_x <= world.width and 0 <= target_position_y <= world.height:
